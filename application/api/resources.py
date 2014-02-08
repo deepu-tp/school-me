@@ -1,36 +1,31 @@
 from tastypie.resources import ModelResource
 from application.models import Payment, Application
 from tastypie.authentication import ApiKeyAuthentication
-
-'''
-class CBSEApplicationResource(ModelResource):
-	class Meta:
-		queryset = CBSEApplication.objects.all()
-		allowed_methods = ['get', 'post']
-		authentication = ApiKeyAuthentication()
-
-class StateApplicationResource(ModelResource):
-	class Meta:
-		queryset = StateApplication.objects.all()
-		allowed_methods = ['get', 'post']
-		authentication = ApiKeyAuthentication()
-
-class MontessoriApplicationResource(ModelResource):
-	class Meta:
-		queryset = MontessoriApplication.objects.all()
-		allowed_methods = ['get', 'post']
-		authentication = ApiKeyAuthentication()
-
-'''
-
-class ApplicationResource(ModelResource):
-	class Meta:
-		queryset = Application.objects.all()
-		allowed_methods = ['get', 'post']
-		authentication = ApiKeyAuthentication()
+from tastypie.authorization import DjangoAuthorization, Authorization
+from tastypie import fields
 
 class PaymentResource(ModelResource):
 	class Meta:
 		queryset = Payment.objects.all()
-		allowed_methods = ['get', 'post']
+		allowed_methods = ['post']
 		authentication = ApiKeyAuthentication()
+		authorization = DjangoAuthorization()
+		always_return_data = True
+
+class ApplicationStatusResource(ModelResource):
+	class Meta:
+		queryset = Application.objects.all()
+		allowed_methods = ['get']
+		fields = ('status', )
+		authentication = ApiKeyAuthentication()
+		authorization = DjangoAuthorization()
+		always_return_data = True
+
+class ApplicationResource(ModelResource):
+	payment = fields.ForeignKey(PaymentResource, 'payment')
+	class Meta:
+		queryset = Application.objects.all()
+		allowed_methods = ['post']
+		authentication = ApiKeyAuthentication()
+		authorization = DjangoAuthorization()
+		always_return_data = True
