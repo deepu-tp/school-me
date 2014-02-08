@@ -4,11 +4,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 from tastypie.api import Api
-from application.api.reousrces import ApplicationResource, PaymentResource
+from application.api.resources import ApplicationResource, PaymentResource, ApplicationStatusResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(ApplicationResource())
 v1_api.register(PaymentResource())
+v1_api.register(ApplicationStatusResource())
 
 urlpatterns = patterns('',
     # Examples:

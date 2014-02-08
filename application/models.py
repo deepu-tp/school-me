@@ -11,17 +11,21 @@ class Payment(models.Model):
 	)
 	name = models.CharField(max_length=64)
 	mode = models.CharField(max_length=10, choices=PAYMENT_MODES)
-	amount = models.DecimalField(max_digits=10, decimal_places=2)
+	amount = models.DecimalField(max_digits=8, decimal_places=2)
 	info = models.TextField()
 	timestamp = models.DateField(auto_now_add=True)
 
 	def __unicode__(self):
-		return self.id
+		return "%d" % self.id
 
 class Application(models.Model):
 	GENDER_SIZES = (
         ('M', 'Male'),
         ('F', 'Female'),
+    )
+	APP_STATUS = (
+        ('PROCESSING', 'Processing'),
+        ('REJECTED', 'Rejected'),
     )
 	name = models.CharField(max_length=64)
 	gender = models.CharField(max_length=1, choices=GENDER_SIZES)
@@ -35,6 +39,7 @@ class Application(models.Model):
 	parent_two_phone = models.CharField("Parent Two Phone", max_length=32, blank=True)
 	parent_two_email = models.EmailField("Parent Two Email", blank=True)
 	payment = models.OneToOneField(Payment)
+	status = models.CharField(max_length=16, choices=APP_STATUS, default='PROCESSING')
 
 	def __unicode__(self):
 		return  " %d %s " % (self.id, self.name)
