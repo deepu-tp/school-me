@@ -28,12 +28,12 @@ class Application(models.Model):
 	dob = models.DateField()
 	placeofbirth = models.CharField("Place of birth", max_length=32)
 	religion = models.CharField(max_length=32)
-	parentonename = models.CharField("Parent One Name", max_length=64)
-	parentonephone = models.CharField("Parent One Phone", max_length=32)
-	parentoneemail = models.EmailField("Parent One Email")
-	parenttwoname = models.CharField("Parent Two Name", max_length=64)
-	parenttwophone = models.CharField("Parent Two Phone", max_length=32, blank=True)
-	parenttwoemail = models.EmailField("Parent Two Email", blank=True)
+	parent_one_name = models.CharField("Parent One Name", max_length=64)
+	parent_one_phone = models.CharField("Parent One Phone", max_length=32)
+	parent_one_email = models.EmailField("Parent One Email")
+	parent_two_name = models.CharField("Parent Two Name", max_length=64)
+	parent_two_phone = models.CharField("Parent Two Phone", max_length=32, blank=True)
+	parent_two_email = models.EmailField("Parent Two Email", blank=True)
 	payment = models.OneToOneField(Payment)
 
 	def __unicode__(self):

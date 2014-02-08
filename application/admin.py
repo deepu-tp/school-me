@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
-
 from models import Application, Payment
 
 class PaymentAdmin(admin.ModelAdmin):
@@ -21,13 +19,13 @@ class ApplicationAdmin(admin.ModelAdmin):
 			'fields': ('name', 'gender', 'dob', 'placeofbirth', 'religion')
 			}),
 		('Parent Information', {
-			'fields': ('parentonename', 'parentonephone', 'parentoneemail', 'parenttwoname', 'parenttwophone', 'parenttwoemail'),
+			'fields': ('parent_one_name', 'parent_one_phone', 'parent_one_email', 'parent_two_name', 'parent_two_phone', 'parent_two_email'),
 			}),
 		('Payment Information', {
 			'fields': ('payment', )
 			})
 	)
-	list_display = ( 'id', 'name', 'gender', 'parentonename', 'parentonephone', 'parentoneemail', )
+	list_display = ( 'id', 'name', 'gender', 'parent_one_name', 'parent_one_phone', 'parent_one_email', )
 
 admin.site.register(Application, ApplicationAdmin)
 admin.site.register(Payment, PaymentAdmin)
